@@ -1,0 +1,5 @@
+Sure! Here's the explanation in the **I perspective** without the before/after context:
+
+- I set the **committer date** and **commit date** to **April 25th, 2025, 16:00** using `GIT_COMMITTER_DATE` and `--date`.
+- I used `git commit --amend` to apply the custom date and message.
+- I pushed the commit with `git push`, using `git push --force` if needed to overwrite the remote history.
