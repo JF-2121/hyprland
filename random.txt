@@ -1,0 +1,4 @@
+Wie macht man git gucken Lokal was was ist 
+
+git config --global user.email
+git config --global user.name
