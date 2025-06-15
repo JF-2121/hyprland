@@ -1,0 +1,193 @@
+# Edit this configuration file to define what should be installed on
+# your system.  Help is available in the configuration.nix(5) man page
+# and in the NixOS manual (accessible by running ‘nixos-help’).
+# pakete und module kann man unter search.nixos.org finden.
+
+{ config, pkgs, ... }:
+
+{
+  imports =
+    [ # Include the results of the hardware scan.
+      ./hardware-configuration.nix
+    ];
+
+  # bootloader
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelPackages = pkgs.linuxPackages_latest; # use latest stable linux kernel
+  boot.kernelParams = [ "amdgpu.dc=1" "amdgpu.gpu_recovery=1" "amdgpu.vm_fragment_size=9" ];
+  #boot.supportedFilesystems = [ "ntfs" ]; # falls du ein ntfs (windows) usb stick einstecken willst
+  # networking
+  networking.hostName = "nixtop"; # Define your hostname.
+  networking.networkmanager.enable = true;
+  # Open ports in the firewall.
+  # networking.firewall.allowedTCPPorts = [ ... ];
+  # networking.firewall.allowedUDPPorts = [ ... ];
+  # Or disable the firewall altogether.
+  # networking.firewall.enable = false;
+
+  # locale
+  console.keyMap = "de";
+  time.timeZone = "Europe/Berlin";
+  i18n.defaultLocale = "en_US.UTF-8";
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "de_DE.UTF-8";
+    LC_IDENTIFICATION = "de_DE.UTF-8";
+    LC_MEASUREMENT = "de_DE.UTF-8";
+    LC_MONETARY = "de_DE.UTF-8";
+    LC_NAME = "de_DE.UTF-8";
+    LC_NUMERIC = "de_DE.UTF-8";
+    LC_PAPER = "de_DE.UTF-8";
+    LC_TELEPHONE = "de_DE.UTF-8";
+    LC_TIME = "de_DE.UTF-8";
+  };
+
+  # x11 desktop stuff
+  # services.ly.enable = true;
+  #services.xserver  = {
+  #  displayManager.gdm.enable = true;
+  #  desktopManager.gnome.enable = true;
+  #  xkb.layout = "de";
+  #  xkb.variant = "";
+  #};
+
+  # x11 trial
+  services.xserver.displayManager.gdm = {
+    enable = true;
+    wayland = true;
+  };
+  
+  # ollama 
+  services.ollama = {
+    enable = true;
+    # acceleration = "rocm";
+  };
+  
+  
+  services.xserver = {
+    enable = true; # Needed for Wayland
+    desktopManager.gnome.enable = true;
+  };
+
+
+  services.tor = {
+    enable = true;
+    settings = {
+      SocksPort = "9050";
+    };
+  };
+    
+
+
+  # sound
+  hardware.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
+
+
+ 
+	
+  # nixpkgs
+  nixpkgs.config.allowUnfree = true;
+
+
+
+  # Enable VirtualBox host support
+  virtualisation.virtualbox.host.enable = true;
+
+  # Enable Extension Pack (USB 2.0/3.0)
+  virtualisation.virtualbox.host.enableExtensionPack = true;
+
+  # Udev rules for USB support (only if needed)
+  services.udev.packages = [ pkgs.virtualbox ];
+
+
+  # users
+  users.users.nichts = {
+    isNormalUser = true;
+    description = "nichts";
+    extraGroups = [ "networkmanager" "wheel" "plugdev" "wireshark" "video" "vboxusers" ];
+    packages = with pkgs; [ # pakete nutzerweit installieren
+      anki-bin
+      gimp
+      jetbrains.idea-ultimate
+      libreoffice-qt
+      obs-studio
+      thunderbird
+      vesktop
+      vscodium-fhs
+      wireshark
+      neovim
+      spotify
+      discord
+      kitty
+      wofi
+      waybar
+      dunst
+      obsidian
+    ];
+  };
+
+  # pakete systemweit installieren
+  environment.systemPackages = with pkgs; [ 
+    btop
+    dig
+    gcc
+    git
+    micro
+    tmux
+    wget
+    neofetch
+    python3
+    mesa
+    wayland
+    wayland-utils
+    mesa_drivers
+    hyprpaper
+    mpv
+    evtest
+    swaylock
+    wlogout
+    gparted
+    tor
+  ];
+
+
+
+  hardware.enableAllFirmware = true;
+
+  
+  
+  programs.firejail.enable = true;
+  programs.hyprland.enable = true;
+  programs.firefox.enable = true;
+  programs.wireshark.enable = true;
+  services.open-webui.enable = true;
+  services.printing.enable = true; # cups
+  services.fwupd.enable = true; # firmware/bios update manager
+  # services.openssh.enable = true; # ssh server
+
+  # hilfreiche abkürzungen von häufig benutzten commands
+  environment.shellAliases = {
+  	nixos-update = "sudo nix-channel --update";
+  	nixos-upgrade = "sudo nixos-rebuild switch";
+  	nixos-test = "sudo nixos-rebuild test";
+  	nixos-edit = "sudo micro /etc/nixos/configuration.nix";
+  };
+
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;  # If you plan to run 32-bit applications
+    extraPackages = with pkgs; [ mesa_drivers firmwareLinuxNonfree ];
+  };
+
+  system.stateVersion = "24.05"; # no touchy!
+}
+ 
+
