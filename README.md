@@ -1,11 +1,14 @@
-# 🌀 Hyprland Config(NIXOS)
+# 🌀 Hyprland Config + Waybar (NIXOS):
 
 This is my basic configuration for [Hyprland](https://github.com/hyprwm/Hyprland), a dynamic tiling Wayland compositor. It's lightweight, fast, and easy to customize.
 NIXOS REQUIRED 
+
 ## ✅ Requirements
 
 Before using this config, make sure you have:
 
+- NixOS
+- Waybar
 - Hyprland
 - A Wayland terminal (e.g., `kitty`, `alacritty`)
 - App launcher (e.g., `rofi` or `wofi`)

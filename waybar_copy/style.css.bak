@@ -1,0 +1,30 @@
+* {
+    font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free";
+    font-size: 14px;
+}
+
+window#waybar {
+    background: rgba(10, 10, 15, 0.98); /* Fast komplett schwarz/blau */
+    border-bottom: 2px solid #00d1ff;
+    color: #ffffff;
+}
+
+#workspaces button {
+    padding: 0 10px;
+    color: #555555;
+}
+
+#workspaces button.active {
+    color: #00d1ff;
+    background: rgba(0, 209, 255, 0.1);
+}
+
+/* Alle farbigen Kapseln */
+#clock, #battery, #pulseaudio, #network, #cpu, #memory, #tray {
+    padding: 0 15px;
+    margin: 4px 2px;
+}
+
+#battery { color: #ff007c; } /* Health Rot */
+#clock { color: #7d52ff; }   /* System Lila */
+#pulseaudio { color: #50fa7b; } /* Audio Grün */

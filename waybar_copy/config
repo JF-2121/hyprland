@@ -1,0 +1,113 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 22,
+    "exclusive": true,
+    "passthrough": false,
+    "spacing": 20,
+    "fixed-center": true,
+    "modules-left": [
+        "hyprland/workspaces"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "custom/media",
+        "network",
+        "cpu",
+        "memory",
+        "temperature",
+        "pulseaudio",
+        "bluetooth",
+        "backlight",
+        "battery"
+    ],
+    "hyprland/workspaces": {
+        "format": "｢{name}｣",
+        "on-click": "activate"
+    },
+    "custom/media": {
+        "format": "{icon} {}",
+        "return-type": "json",
+        "max-length": 40,
+        "forma12t-icons": {
+            "default": "▶️"
+        },
+        "escape": true,
+        "exec": "playerctl -a metadata --format '{\"text\": \"{{artist}} - {{title}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
+        "on-click": "playerctl play-pause",
+        "on-scroll-up": "playerctl next",
+        "on-scroll-down": "playerctl previous"
+    },
+    "clock": {
+        "format": "{:%H:%M:%S}",
+        "interval": 1,
+        "tooltip-format": "QUEST LOG\n{calendar}"
+    },
+    "tray": {
+        "icon-size": 16,
+        "spacing": 8
+    },
+    "network": {
+        "format-wifi": "📡",
+        "format-ethernet": "🌐",
+        "format-disconnected": "🚫",
+        "tooltip-format": "{essid} ({signalStrength}%)",
+        "on-click": "kitty -e nmtui"
+    },
+    "bluetooth": {
+        "format": "🔵",
+        "format-disabled": "",
+        "format-connected": "🔹",
+        "tooltip-format-connected": "{device_alias}",
+        "on-click": "blueman-manager"
+    },
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "🔇",
+        "format-icons": {
+            "default": [
+                "🔈",
+                "🔉",
+                "🔊"
+            ]
+        },
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+    },
+    "cpu": {
+        "format": "⚔️ {usage}%",
+        "interval": 2
+    },
+    "memory": {
+        "format": "💧 {percentage}%",
+        "interval": 2
+    },
+    "temperature": {
+        "critical-threshold": 80,
+        "format-critical": "🔥 {temperatureC}°C",
+        "format": "🌡️ {temperatureC}°C"
+    },
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": "⚡ {capacity}%",
+        "format-icons": [
+            "🪫",
+            "🔋"
+        ]
+    },
+    "backlight": {
+        "format": "{icon} {percent}%",
+        "format-icons": [
+            "🌑",
+            "🌘",
+            "🌗",
+            "🌖",
+            "☀️"
+        ]
+    }
+}
