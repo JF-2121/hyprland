@@ -1,7 +1,7 @@
 # 🌀 Hyprland Config(NIXOS)
 
 This is my basic configuration for [Hyprland](https://github.com/hyprwm/Hyprland), a dynamic tiling Wayland compositor. It's lightweight, fast, and easy to customize.
-! NIXOS REQUIRED !
+NIXOS REQUIRED 
 ## ✅ Requirements
 
 Before using this config, make sure you have:
