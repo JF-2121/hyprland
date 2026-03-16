@@ -1,0 +1,12 @@
+#waybar {
+    background: rgba(11, 14, 20, 0.8);
+    border-bottom: 2px solid #00d1ff;
+    color: #e0e0e0;
+    font-family: "JetBrainsMono Nerd Font";
+}
+
+#workspaces button.active {
+    background: #00d1ff;
+    color: #0b0e14;
+    box-shadow: 0 0 10px #00d1ff; /* Glüheffekt für den aktiven Workspace */
+}
